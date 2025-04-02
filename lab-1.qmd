@@ -1,6 +1,6 @@
 ---
 title: "Lab 1 - Quarto Warmup & STAT 331 Review"
-author: "YOUR NAME HERE"
+author: "Sydney Potkey"
 format: html
 embed-resources: true
 editor: source
