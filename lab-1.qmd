@@ -6,6 +6,7 @@ embed-resources: true
 editor: source
 execute: 
   echo: true
+  warnings: false
 ---
 
 ```{r}
@@ -20,13 +21,15 @@ library(ggridges)
 First, let's make sure you know how to use Markdown formatting to style a Quarto
 document.
 
-1.  Make this text bold.
+1.  **Make this text bold.**
 
-2.  Make this text italicized.
+2.  *Make this text italicized.*
 
 3.  Make these into a bullet point list:
 
-Apples Bananas Potatoes
+ *Apples 
+ *Bananas 
+ *Potatoes
 
 4.  Edit the YAML to remove warning messages from being output in the rendered
 HTML file
@@ -35,6 +38,8 @@ HTML file
 source code:
 
 ```{r}
+#| echo: false
+
 ggplot(data = mpg, 
        mapping = aes(y = manufacturer, x = hwy)) + 
   geom_boxplot() +
@@ -48,6 +53,7 @@ ggplot(data = mpg,
 `geom_density_ridges()` chose to use:
 
 ```{r}
+#| message: false
 ggplot(data = mpg, 
        mapping = aes(y = manufacturer, x = hwy)) + 
   geom_density_ridges() +
@@ -61,6 +67,8 @@ ggplot(data = mpg,
 side-by-side:
 
 ```{r}
+#| fig-ncol: 2
+
 
 ggplot(data = mpg, 
        mapping = aes(y = manufacturer, x = hwy)) + 
@@ -84,6 +92,9 @@ ggplot(data = mpg,
 output:
 
 ```{r}
+#| eval: false
+
+
 2 + 2
 ```
 
@@ -91,6 +102,9 @@ output:
 this chunk has an error
 
 ```{r}
+#| error: true
+
+
 2 + a
 ```
 
@@ -99,7 +113,7 @@ chunks above.
 
 ## Data Wrangling Review
 
-Since you already seen some `ggplot`s, let's do a bit of review on data 
+Since you've already seen some `ggplot`s, let's do a bit of review on data 
 handling. In this class, we will exclusively make use of tools from the 
 `tidyverse` suite of packages to perform our data cleaning and wrangling
 operations. If you are less familiar with these packages or it's been some time
@@ -116,6 +130,12 @@ two levels: `petrol` (any car using petrolium-based gas) and
 `alternative energy` (any car not using petrolium-based gas). 
 
 ```{r}
+
+glimpse(mpg)
+mpg$fl
+
+mutate
+
 
 ```
 
