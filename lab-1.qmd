@@ -94,7 +94,6 @@ output:
 ```{r}
 #| eval: false
 
-
 2 + 2
 ```
 
@@ -103,7 +102,6 @@ this chunk has an error
 
 ```{r}
 #| error: true
-
 
 2 + a
 ```
@@ -134,7 +132,14 @@ two levels: `petrol` (any car using petrolium-based gas) and
 glimpse(mpg)
 mpg$fl
 
-mutate
+mpg |>
+  mutate(fuel_type = if_else(
+    fl == "p",
+    "petrol",
+    "alternative energy"))
+
+
+
 
 
 ```
@@ -145,6 +150,13 @@ Specifically, use the `case_when()` function to change the `drv` varible to have
 the following levels: `front`, `rear`, `four wheel`. 
 
 ```{r}
+mpg |>
+  mutate(drv = case_when(
+    drv == "f" ~ "front",
+    drv == "r" ~ "rear",
+    drv == "4" ~ "four wheel"
+  ))
+
 
 ```
 
@@ -159,6 +171,17 @@ of the `trans` column to `trans_style`.
 
 ```{r}
 
+mpg |> 
+  mutate(
+    trans_split = str_split(trans, "\\(", n = 2),  
+    trans = map_chr(trans_split, 1),  
+    trans_type = map_chr(trans_split, ~str_remove(.[2], "\\)")) 
+  ) |>
+  select(-trans_split) |>
+  rename(trans_style = trans)
+
+
+
 ```
 
 ## Getting to know your classmates
@@ -168,6 +191,27 @@ your experiences. Tell me their name and professor. List one or two things that
 you think you learned more about, and one or two things that they learned more
 about.
 
+I talked to Lucas who took 331 with Dr.Lund. A major difference between our classes was that his class did not use markdown or quarto for their assignments. His class also focused more on regression and statistical analysis n r than data wrangling, visualization, and function writing. 
+
+
 15. Find someone in the class who **does not** share your birth month. Tell me
 their name and birthday, and use R to find out how many days apart your
 birthdays are.
+
+```{r}
+library(lubridate)
+start_date <- ymd("2024-08-30")
+end_date <- ymd("2024-09-22")
+
+end_date - start_date
+
+
+
+
+```
+
+Zach's birthday is August 30th. Mine is September 22nd. There are 23 days between our birthdays.
+
+
+
+
